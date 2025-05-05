@@ -1,6 +1,6 @@
 {
-    "name": "{{BPREPLACEGITHUB}}/{{BPREPLACESLUG}}",
-    "description": "{{BPREPLACEDESCRIPTION}}",
+    "name": "helsingborg-stad/algolia-index-typesense-provider",
+    "description": "Typesense search provider for Algolia Index plugin",
     "type": "wordpress-plugin",
     "license": "MIT",
     "scripts": {
@@ -10,12 +10,12 @@
     },
     "authors": [
         {
-            "name": "{{BPREPLACEAUTHOR}}",
-            "email": "{{BPREPLACEAUTHOREMAIL}}"
+            "name": "Nikolas Ramstedt",
+            "email": "nikolas.ramstedt@helsingborg.se"
         }
     ],
     "autoload": {
-        "psr-4": {"{{BPREPLACENAMESPACE}}\\": "source/php/"}
+        "psr-4": {"AlgoliaIndexTypesenseProvider\\": "source/php/"}
     },
     "minimum-stability": "stable",
     "require": {},

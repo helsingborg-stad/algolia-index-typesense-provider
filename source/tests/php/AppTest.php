@@ -1,7 +1,7 @@
 <?php
-namespace {{BPREPLACENAMESPACE}};
+namespace AlgoliaIndexTypesenseProvider;
 
-use {{BPREPLACENAMESPACE}}\App;
+use AlgoliaIndexTypesenseProvider\App;
 
 use Brain\Monkey\Functions;
 use Mockery;
@@ -12,14 +12,14 @@ class AppTest extends \PluginTestCase\PluginTestCase
     {
         new App();
     
-        self::assertNotFalse(has_action('admin_enqueue_scripts', '{{BPREPLACENAMESPACE}}\App->enqueueStyles()'));
-        self::assertNotFalse(has_action('admin_enqueue_scripts', '{{BPREPLACENAMESPACE}}\App->enqueueScripts()'));
+        self::assertNotFalse(has_action('admin_enqueue_scripts', 'AlgoliaIndexTypesenseProvider\App->enqueueStyles()'));
+        self::assertNotFalse(has_action('admin_enqueue_scripts', 'AlgoliaIndexTypesenseProvider\App->enqueueScripts()'));
     }
 
     public function testEnqueueStyles()
     {
         Functions\expect('wp_register_style')->once();
-        Functions\expect('wp_enqueue_style')->once()->with('{{BPREPLACESLUG}}-css');
+        Functions\expect('wp_enqueue_style')->once()->with('algolia-index-typesense-provider-css');
 
         $app = new App();
 
@@ -29,7 +29,7 @@ class AppTest extends \PluginTestCase\PluginTestCase
     public function testEnqueueScripts()
     {
         Functions\expect('wp_register_script')->once();
-        Functions\expect('wp_enqueue_script')->once()->with('{{BPREPLACESLUG}}-js');
+        Functions\expect('wp_enqueue_script')->once()->with('algolia-index-typesense-provider-js');
 
         $app = new App();
 

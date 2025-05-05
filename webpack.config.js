@@ -16,8 +16,8 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
-        'js/{{BPREPLACESLUG}}': './source/js/{{BPREPLACESLUG}}.js',
-        'css/{{BPREPLACESLUG}}': './source/sass/{{BPREPLACESLUG}}.scss',
+        'js/algolia-index-typesense-provider': './source/js/algolia-index-typesense-provider.js',
+        'css/algolia-index-typesense-provider': './source/sass/algolia-index-typesense-provider.scss',
     },
     
     /**

@@ -1,18 +1,18 @@
 {
-  "name": "{{BPREPLACESLUG}}",
+  "name": "algolia-index-typesense-provider",
   "version": "1.0.0",
-  "description": "{{BPREPLACEDESCRIPTION}}",
+  "description": "Typesense search provider for Algolia Index plugin",
   "main": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/{{BPREPLACEGITHUB}}/{{BPREPLACESLUG}}"
+    "url": "https://github.com/helsingborg-stad/algolia-index-typesense-provider"
   },
-  "author": "{{BPREPLACEAUTHOR}}",
+  "author": "Nikolas Ramstedt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/{{BPREPLACEGITHUB}}/{{BPREPLACESLUG}}/issues"
+    "url": "https://github.com/helsingborg-stad/algolia-index-typesense-provider/issues"
   },
-  "homepage": "https://github.com/{{BPREPLACEGITHUB}}/{{BPREPLACESLUG}}",
+  "homepage": "https://github.com/helsingborg-stad/algolia-index-typesense-provider",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "cross-env NODE_ENV=development webpack --watch",
