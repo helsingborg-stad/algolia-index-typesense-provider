@@ -2,43 +2,53 @@
 
 namespace AlgoliaIndexTypesenseProvider;
 
+use AlgoliaIndexTypesenseProvider\Provider\Typesense\TypesenseProviderFactory;
+
 class App
 {
     public function __construct()
     {
-        add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+        if (!$this->isConfigured()) {
+            add_action("admin_notices", [$this, "showAdminNotice"]);
+            return;
+        }
 
-        $this->cacheBust = new \AlgoliaIndexTypesenseProvider\Helper\CacheBust();
+        add_filter("AlgoliaIndex/Options/IsConfigured", function($isConfigured) {return false;}, 10, 1);
+        add_filter("AlgoliaIndex/Provider/Factory", [$this, "registerProvider"]);
     }
 
-    /**
-     * Enqueue required style
-     * @return void
-     */
-    public function enqueueStyles()
+    public function notices()
     {
-        wp_register_style(
-            'algolia-index-typesense-provider-css',
-            ALGOLIA_INDEX_TYPESENSE_PROVIDER_URL . '/dist/' .
-            $this->cacheBust->name('css/algolia-index-typesense-provider.css')
-        );
-
-        wp_enqueue_style('algolia-index-typesense-provider-css');
+        $conditions = [
+            [!is_plugin_active("algolia-index/algolia-index.php"), __("AlgoliaIndex plugin is not activated.", "algoliaindex-typesense-provider")],
+            [!defined("TYPESENSEINDEX_API_KEY") || empty(TYPESENSEINDEX_API_KEY), __("TYPESENSEINDEX_API_KEY is not defined.", "algoliaindex-typesense-provider")],
+            [!defined("TYPESENSEINDEX_APPLICATION_ID") || empty(TYPESENSEINDEX_APPLICATION_ID), __("TYPESENSEINDEX_APPLICATION_ID is not defined.", "algoliaindex-typesense-provider")],
+            [!class_exists("\AlgoliaIndex\App"), __("AlgoliaIndex class not found.", "algoliaindex-typesense-provider")],
+        ];
+        
+        return array_filter(array_map(function($item) {
+            [$condition, $message] = $item;
+            return $condition ? $message : null;
+        }, $conditions));
     }
 
-    /**
-     * Enqueue required scripts
-     * @return void
-     */
-    public function enqueueScripts()
+    public function isConfigured()
     {
-        wp_register_script(
-            'algolia-index-typesense-provider-js',
-            ALGOLIA_INDEX_TYPESENSE_PROVIDER_URL . '/dist/' .
-            $this->cacheBust->name('js/algolia-index-typesense-provider.js')
-        );
+        return empty($this->notices());
+    }
 
-        wp_enqueue_script('algolia-index-typesense-provider-js');
+    public function showAdminNotice()
+    {
+        echo "<div class='notice notice-error'><p>";
+        echo _e("Algolia Index Typesense Provider (Plugin) - The following issues need to be resolved:", "algoliaindex-typesense-provider") . "<br>";
+        foreach ($this->notices() as $notice) {
+            echo esc_html($notice) . "<br>";
+        }
+        echo "</p></div>";
+    }
+
+    public function registerProvider($callable)
+    {
+        return fn() => TypesenseProviderFactory::createFromEnv();
     }
 }
