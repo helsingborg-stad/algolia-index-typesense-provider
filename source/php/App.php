@@ -15,6 +15,9 @@ class App
 
         add_filter("AlgoliaIndex/Options/IsConfigured", function($isConfigured) {return false;}, 10, 1);
         add_filter("AlgoliaIndex/Provider/Factory", [$this, "registerProvider"]);
+        add_filter("AlgoliaIndex/Provider", function($provider) {
+            return 'typesense';
+        }, 10, 1);
     }
 
     public function notices()
@@ -47,8 +50,9 @@ class App
         echo "</p></div>";
     }
 
-    public function registerProvider($callable)
+    public function registerProvider($providers)
     {
-        return fn() => TypesenseProviderFactory::createFromEnv();
+        $providers['typesense'] = fn() => TypesenseProviderFactory::createFromEnv();
+        return $providers;
     }
 }
