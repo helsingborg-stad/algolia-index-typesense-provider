@@ -18,6 +18,22 @@ class App
         add_filter("AlgoliaIndex/Provider", function($provider) {
             return 'typesense';
         }, 10, 1);
+
+        // Plugin(helsingborg-stad/algolia-index-js-searchpage-addon) integration
+        add_filter('AlgoliaIndex/SearchConfig', function($config) {
+            $parts = parse_url(TYPESENSEINDEX_APPLICATION_ID);
+            return array_merge(
+                $config,
+                [
+                    'type'              => 'typesense',
+                    'host'              => isset($parts['host']) ? $parts['host'] : null,
+                    'port'              => isset($parts['port']) ? $parts['port'] : 443,
+                    'protocol'          => isset($parts['scheme']) ? $parts['scheme'] : 'https',
+                    'apiKey'            => TYPESENSEINDEX_API_KEY,
+                    'collectionName'    => defined('TYPESENSEINDEX_INDEX_NAME') && !empty(TYPESENSEINDEX_INDEX_NAME) ? TYPESENSEINDEX_INDEX_NAME : \AlgoliaIndex\Helper\Options::indexName(),
+                ]
+            );
+        });
     }
 
     public function notices()
