@@ -9,7 +9,7 @@ class TypesenseProviderFactory
         return new TypesenseProvider(
             TYPESENSEINDEX_API_KEY, 
             TYPESENSEINDEX_APPLICATION_ID, 
-            TYPESENSEINDEX_INDEX_NAME ?? AlgoliaIndex\Helper\Options::indexName()
+            defined('TYPESENSEINDEX_INDEX_NAME') && !empty(TYPESENSEINDEX_INDEX_NAME) ? TYPESENSEINDEX_INDEX_NAME : \AlgoliaIndex\Helper\Options::indexName(),
         );
     }
 }
