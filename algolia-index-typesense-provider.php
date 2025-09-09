@@ -36,7 +36,7 @@ add_action('acf/init', function () {
     $acfExportManager->setTextdomain('algolia-index-typesense-provider');
     $acfExportManager->setExportFolder(ALGOLIA_INDEX_TYPESENSE_PROVIDER_PATH . 'source/php/AcfFields/');
     $acfExportManager->autoExport(array(
-        'algolia-index-typesense-provider-settings' => 'group_61ea7a87e8aaa' //Update with acf id here, settings view
+        'algolia-index-typesense-provider'        => 'group_68bfb035c379f',
     ));
     $acfExportManager->import();
 });
