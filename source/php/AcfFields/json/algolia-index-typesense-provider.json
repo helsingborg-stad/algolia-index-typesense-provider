@@ -4,11 +4,11 @@
     "fields": [
         {
             "key": "field_68bfb0352423b",
-            "label": "Typesense Application ID",
-            "name": "algolia_index_typesense_application_id",
+            "label": "Typesense API URL",
+            "name": "algolia_index_typesense_api_url",
             "aria-label": "",
             "type": "text",
-            "instructions": "May be overridden by TYPESENSEINDEX_APPLICATION_ID constant",
+            "instructions": "May be overridden by TYPESENSEINDEX_API_URL constant",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -45,12 +45,33 @@
             "append": ""
         },
         {
-            "key": "field_68bfb2f7b3096",
-            "label": "Typesense Index Name",
-            "name": "algolia_index_typesense_index_name",
+            "key": "field_68c29744a3e27",
+            "label": "Typesense Public API Key",
+            "name": "algolia_index_typesense_public_api_key",
             "aria-label": "",
             "type": "text",
-            "instructions": "May be overridden by TYPESENSEINDEX_INDEX_NAME constant. Leave blank to create one for you.",
+            "instructions": "May be overridden by TYPESENSEINDEX_PUBLIC_API_KEY constant",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_68bfb2f7b3096",
+            "label": "Typesense Collection Name",
+            "name": "algolia_index_typesense_collection_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "May be overridden by TYPESENSEINDEX_COLLECTION_NAME constant. Leave blank to create one for you.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

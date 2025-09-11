@@ -8,8 +8,8 @@ class TypesenseProviderFactory
     {
         return new TypesenseProvider(
             TYPESENSEINDEX_API_KEY, 
-            TYPESENSEINDEX_APPLICATION_ID, 
-            defined('TYPESENSEINDEX_INDEX_NAME') && !empty(TYPESENSEINDEX_INDEX_NAME) ? TYPESENSEINDEX_INDEX_NAME : \AlgoliaIndex\Helper\Options::indexName(),
+            TYPESENSEINDEX_API_URL, 
+            defined('TYPESENSEINDEX_COLLECTION_NAME') && !empty(TYPESENSEINDEX_COLLECTION_NAME) ? TYPESENSEINDEX_COLLECTION_NAME : \AlgoliaIndex\Helper\Options::indexName(),
         );
     }
 }

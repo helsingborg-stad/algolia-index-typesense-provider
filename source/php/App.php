@@ -2,6 +2,7 @@
 
 namespace AlgoliaIndexTypesenseProvider;
 
+use AlgoliaIndexTypesenseProvider\Helper\Options;
 use AlgoliaIndexTypesenseProvider\Provider\Typesense\TypesenseProviderFactory;
 
 class App
@@ -24,7 +25,7 @@ class App
                 return $config;
             }
 
-            $parts = parse_url(TYPESENSEINDEX_APPLICATION_ID);
+            $parts = parse_url(TYPESENSEINDEX_API_URL);
             return array_merge(
                 $config,
                 [
@@ -33,7 +34,7 @@ class App
                     'port'              => isset($parts['port']) ? $parts['port'] : 443,
                     'protocol'          => isset($parts['scheme']) ? $parts['scheme'] : 'https',
                     'apiKey'            => TYPESENSEINDEX_API_KEY,
-                    'collectionName'    => defined('TYPESENSEINDEX_INDEX_NAME') && !empty(TYPESENSEINDEX_INDEX_NAME) ? TYPESENSEINDEX_INDEX_NAME : \AlgoliaIndex\Helper\Options::indexName(),
+                    'collectionName'    => defined('TYPESENSEINDEX_COLLECTION_NAME') && !empty(TYPESENSEINDEX_COLLECTION_NAME) ? TYPESENSEINDEX_COLLECTION_NAME : \AlgoliaIndex\Helper\Options::indexName(),
                 ]
             );
         });
@@ -43,8 +44,8 @@ class App
     {
         $conditions = [
             [!is_plugin_active("algolia-index/algolia-index.php"), __("AlgoliaIndex plugin is not activated.", "algoliaindex-typesense-provider")],
-            [!defined("TYPESENSEINDEX_API_KEY") || empty(TYPESENSEINDEX_API_KEY), __("TYPESENSEINDEX_API_KEY is not defined.", "algoliaindex-typesense-provider")],
-            [!defined("TYPESENSEINDEX_APPLICATION_ID") || empty(TYPESENSEINDEX_APPLICATION_ID), __("TYPESENSEINDEX_APPLICATION_ID is not defined.", "algoliaindex-typesense-provider")],
+            [!Options::apiKey(), __("TYPESENSEINDEX_API_KEY is not defined.", "algoliaindex-typesense-provider")],
+            [!Options::apiUrl(), __("TYPESENSEINDEX_API_URL is not defined.", "algoliaindex-typesense-provider")],
             [!class_exists("\AlgoliaIndex\App"), __("AlgoliaIndex class not found.", "algoliaindex-typesense-provider")],
         ];
         
