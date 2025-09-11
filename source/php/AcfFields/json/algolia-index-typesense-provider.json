@@ -8,7 +8,7 @@
             "name": "algolia_index_typesense_api_url",
             "aria-label": "",
             "type": "text",
-            "instructions": "May be overridden by TYPESENSEINDEX_API_URL constant",
+            "instructions": "Eg. \"http:\/\/localhost:8108\". May be overridden by TYPESENSEINDEX_API_URL constant",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

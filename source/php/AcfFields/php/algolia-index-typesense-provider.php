@@ -11,7 +11,7 @@
             'name' => 'algolia_index_typesense_api_url',
             'aria-label' => '',
             'type' => 'text',
-            'instructions' => __('May be overridden by TYPESENSEINDEX_API_URL constant', 'algolia-index-typesense-provider'),
+            'instructions' => __('Eg. "http://localhost:8108". May be overridden by TYPESENSEINDEX_API_URL constant', 'algolia-index-typesense-provider'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
