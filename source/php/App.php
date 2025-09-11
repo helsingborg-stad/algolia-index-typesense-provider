@@ -15,12 +15,15 @@ class App
 
         add_filter("AlgoliaIndex/Options/IsConfigured", function($isConfigured) {return false;}, 10, 1);
         add_filter("AlgoliaIndex/Provider/Factory", [$this, "registerProvider"]);
-        add_filter("AlgoliaIndex/Provider", function($provider) {
-            return 'typesense';
-        }, 10, 1);
 
         // Plugin(helsingborg-stad/algolia-index-js-searchpage-addon) integration
         add_filter('AlgoliaIndex/SearchConfig', function($config) {
+            if (get_field('algolia_index_search_provider', 'option') !== 'typesense'
+                || !defined('TYPESENSEINDEX_API_KEY') 
+                || empty(TYPESENSEINDEX_API_KEY)){
+                return $config;
+            }
+
             $parts = parse_url(TYPESENSEINDEX_APPLICATION_ID);
             return array_merge(
                 $config,
