@@ -88,7 +88,10 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
         $collectionData = [
             'name' => $this->collectionName,
             'fields' => [
-                ['name' => '.*' , 'type' => 'auto']
+                ['name' => 'post_title' , 'type' => 'string', 'locale' => 'sv'],
+                ['name' => 'post_excerpt' , 'type' => 'string', 'locale' => 'sv', 'optional' => true],
+                ['name' => 'content' , 'type' => 'string', 'locale' => 'sv', 'optional' => true],
+                ['name' => '.*' , 'type' => 'auto', 'locale' => 'sv'],
             ]
         ];
         $response = $this->sendRequest('POST', '/collections', $collectionData);
@@ -156,13 +159,15 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
         $data = [
             ...$object, 
             ...[
+                'post_title' => html_entity_decode($object['post_title'] ?? ''),
+                'post_excerpt' => html_entity_decode($object['post_excerpt'] ?? ''),
                 'id' => $object['uuid'],
                 'tags' => $object['tags'] ?? [],
                 'categories' => $object['categories'] ?? [],
                 'thumbnail_alt' => $object['thumbnail_alt'] && \is_string($object['thumbnail_alt']) ? $object['thumbnail_alt'] : '',
             ]
         ];
-        // error_log(\json_encode($data));
+
         $response = $this->sendRequest(
             'POST', 
             "/collections/{$this->collectionName}/documents", 
