@@ -20,12 +20,12 @@ class App
         // Plugin(helsingborg-stad/algolia-index-js-searchpage-addon) integration
         add_filter('AlgoliaIndex/SearchConfig', function($config) {
             if (get_field('algolia_index_search_provider', 'option') !== 'typesense'
-                || !defined('TYPESENSEINDEX_API_KEY') 
-                || empty(TYPESENSEINDEX_API_KEY)){
+                || !Options::apiKey()
+                || !Options::apiUrl()) {
                 return $config;
             }
 
-            $parts = parse_url(TYPESENSEINDEX_API_URL);
+            $parts = parse_url(Options::apiUrl());
             return array_merge(
                 $config,
                 [
@@ -33,8 +33,8 @@ class App
                     'host'              => isset($parts['host']) ? $parts['host'] : null,
                     'port'              => isset($parts['port']) ? $parts['port'] : 443,
                     'protocol'          => isset($parts['scheme']) ? $parts['scheme'] : 'https',
-                    'apiKey'            => TYPESENSEINDEX_API_KEY,
-                    'collectionName'    => defined('TYPESENSEINDEX_COLLECTION_NAME') && !empty(TYPESENSEINDEX_COLLECTION_NAME) ? TYPESENSEINDEX_COLLECTION_NAME : \AlgoliaIndex\Helper\Options::indexName(),
+                    'apiKey'            => Options::apiKey(),
+                    'collectionName'    => Options::collectionName(),
                 ]
             );
         });
