@@ -163,16 +163,19 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
     {
         // error_log('Typesense: saveObject');
 
-        $data = [
-            ...$object, 
-            ...[
-                'id' => $object['uuid'],
-                'post_title' => html_entity_decode($object['post_title'] ?? ''),
-                'post_excerpt' => html_entity_decode($object['post_excerpt'] ?? ''),
-                'tags' => array_map(fn ($t) => html_entity_decode($t), $object['tags'] ?? []),
-                'categories' => array_map(fn ($t) => html_entity_decode($t), $object['categories'] ?? []),
+        $data = \apply_filters(
+            'AlgoliaIndexTypesenseProvider/Provider/Typesense/SaveObject/Data', 
+            [
+                ...$object, 
+                ...[
+                    'id' => $object['uuid'],
+                    'post_title' => html_entity_decode($object['post_title'] ?? ''),
+                    'post_excerpt' => html_entity_decode($object['post_excerpt'] ?? ''),
+                    'tags' => array_map(fn ($t) => html_entity_decode($t), $object['tags'] ?? []),
+                    'categories' => array_map(fn ($t) => html_entity_decode($t), $object['categories'] ?? []),
+                ]
             ]
-        ];
+        );
 
         $response = $this->sendRequest(
             'POST', 
