@@ -206,4 +206,8 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
             }
         );
     }
+
+    public function shouldSplitRecord(): bool {
+        return false;
+    }
 }
