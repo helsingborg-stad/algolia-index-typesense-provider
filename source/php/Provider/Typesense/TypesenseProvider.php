@@ -84,17 +84,23 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
 
     public function setSettings(array $settings = []) 
     {
-        // error_log('Typesense: setSettings');
+        $locale = substr(get_locale(), 0, 2);
         $collectionData = [
             'name' => $this->collectionName,
-            'fields' => [
-                ['name' => 'post_title' , 'type' => 'string', 'locale' => 'sv'],
-                ['name' => 'post_excerpt' , 'type' => 'string', 'locale' => 'sv', 'optional' => true],
-                ['name' => 'content' , 'type' => 'string', 'locale' => 'sv', 'optional' => true],
-                ['name' => '.*' , 'type' => 'auto', 'locale' => 'sv'],
-            ]
+            'fields' => \apply_filters('AlgoliaIndexTypesense/Collection/Fields', [ 
+                ['name' => 'post_title' , 'type' => 'string', 'locale' => $locale],
+                ['name' => 'post_excerpt' , 'type' => 'string', 'locale' => $locale],
+                ['name' => 'content' , 'type' => 'string', 'locale' => $locale],
+                ['name' => 'permalink' , 'type' => 'string'],
+                ['name' => 'tags' , 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'categories' , 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'origin_site' , 'type' => 'string', 'facet' => true],
+                ['name' => '.*' , 'type' => 'auto', 'locale' => $locale],
+            ]),
         ];
+
         $response = $this->sendRequest('POST', '/collections', $collectionData);
+        
         if (!empty($response['error'])) {
             error_log(\json_encode($response));
             $allowedErrors = [409];
