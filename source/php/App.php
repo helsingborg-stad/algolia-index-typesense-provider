@@ -38,6 +38,20 @@ class App
                 ]
             );
         });
+
+        add_filter('WpSecurity/Csp', function ($domains) {
+            if (!isset($domains['connect-src'])) {
+                $domains['connect-src'] = [];
+            }
+
+            if (!empty(Options::apiUrl())) {
+                $parts = parse_url(Options::apiUrl());
+                if (isset($parts['host'])) {
+                    $domains['connect-src'][] = $parts['scheme'] . '://' . $parts['host'];
+                }
+            }
+            return $domains;
+        });
     }
 
     public function notices()
