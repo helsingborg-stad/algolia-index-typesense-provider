@@ -87,7 +87,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
         $locale = substr(get_locale(), 0, 2);
         $collectionData = [
             'name' => $this->collectionName,
-            'fields' => \apply_filters('AlgoliaIndexTypesense/Collection/Fields', [ 
+            'fields' => \apply_filters('AlgoliaIndexTypesenseProvider/Provider/Typesense/Fields', [ 
                 ['name' => 'post_title' , 'type' => 'string', 'locale' => $locale],
                 ['name' => 'post_excerpt' , 'type' => 'string', 'locale' => $locale],
                 ['name' => 'content' , 'type' => 'string', 'locale' => $locale],
