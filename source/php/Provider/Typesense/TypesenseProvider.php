@@ -162,15 +162,15 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
     public function saveObject(array $object, array $options = []) 
     {
         // error_log('Typesense: saveObject');
+
         $data = [
             ...$object, 
             ...[
+                'id' => $object['uuid'],
                 'post_title' => html_entity_decode($object['post_title'] ?? ''),
                 'post_excerpt' => html_entity_decode($object['post_excerpt'] ?? ''),
-                'id' => $object['uuid'],
-                'tags' => $object['tags'] ?? [],
-                'categories' => $object['categories'] ?? [],
-                'thumbnail_alt' => $object['thumbnail_alt'] && \is_string($object['thumbnail_alt']) ? $object['thumbnail_alt'] : '',
+                'tags' => array_map(fn ($t) => html_entity_decode($t), $object['tags'] ?? []),
+                'categories' => array_map(fn ($t) => html_entity_decode($t), $object['categories'] ?? []),
             ]
         ];
 
