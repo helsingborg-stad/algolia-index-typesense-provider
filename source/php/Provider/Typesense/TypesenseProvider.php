@@ -85,19 +85,22 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
     public function setSettings(array $settings = []) 
     {
         $locale = substr(get_locale(), 0, 2);
-        $collectionData = [
-            'name' => $this->collectionName,
-            'fields' => \apply_filters('AlgoliaIndexTypesenseProvider/Provider/Typesense/Fields', [ 
-                ['name' => 'post_title' , 'type' => 'string', 'locale' => $locale],
-                ['name' => 'post_excerpt' , 'type' => 'string', 'locale' => $locale],
-                ['name' => 'content' , 'type' => 'string', 'locale' => $locale],
-                ['name' => 'permalink' , 'type' => 'string'],
-                ['name' => 'tags' , 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'categories' , 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'origin_site' , 'type' => 'string', 'facet' => true],
-                ['name' => '.*' , 'type' => 'auto', 'locale' => $locale],
-            ]),
-        ];
+        $collectionData = \apply_filters(
+            'AlgoliaIndexTypesenseProvider/CollectionSchema', 
+            [
+                'name' => $this->collectionName,
+                'fields' => \apply_filters('AlgoliaIndexTypesenseProvider/Fields', [ 
+                    ['name' => 'post_title' , 'type' => 'string', 'locale' => $locale],
+                    ['name' => 'post_excerpt' , 'type' => 'string', 'locale' => $locale],
+                    ['name' => 'content' , 'type' => 'string', 'locale' => $locale],
+                    ['name' => 'permalink' , 'type' => 'string'],
+                    ['name' => 'tags' , 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                    ['name' => 'categories' , 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                    ['name' => 'origin_site' , 'type' => 'string', 'facet' => true],
+                    ['name' => '.*' , 'type' => 'auto', 'locale' => $locale],
+                ]),
+            ]
+        );
 
         $response = $this->sendRequest('POST', '/collections', $collectionData);
         
@@ -134,7 +137,6 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
 
     public function clearObjects() 
     {
-        // error_log('Typesense: clearObjects');
         $response = $this->sendRequest('DELETE', "/collections/{$this->collectionName}/documents?truncate=true");
         if ($response['error']) {
             error_log(\json_encode($response['error']));
@@ -144,7 +146,6 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
 
     public function deleteObject(string $objectId) 
     {
-        // error_log('Typesense: deleteObject');
         $response = $this->sendRequest('DELETE', "/collections/{$this->collectionName}/documents/{$objectId}");
         if ($response['error']) {
             error_log(\json_encode($response['error']));
@@ -161,10 +162,8 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
 
     public function saveObject(array $object, array $options = []) 
     {
-        // error_log('Typesense: saveObject');
-
         $data = \apply_filters(
-            'AlgoliaIndexTypesenseProvider/Provider/Typesense/SaveObject/Data', 
+            'AlgoliaIndexTypesenseProvider/SaveObjectData', 
             [
                 ...$object, 
                 ...[
