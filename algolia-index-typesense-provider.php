@@ -4,7 +4,7 @@
  * Plugin Name:       Algolia Index Typesense Provider
  * Plugin URI:        https://github.com/helsingborg-stad/algolia-index-typesense-provider
  * Description:       Typesense search provider for Algolia Index plugin
- * Version:           1.0.0
+ * Version: 1.0.9
  * Author:            Nikolas Ramstedt
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
