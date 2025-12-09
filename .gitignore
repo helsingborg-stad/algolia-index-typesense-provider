@@ -60,3 +60,4 @@ phpunit-testdox.txt
 !.gitignore
 !.editorconfig
 !.github
+!.vscode
