@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_68bfb035c379f',
         'title' => __('Typesense Provider Settings', 'algolia-index-typesense-provider'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_68bfb0352423b',
                 'label' => __('Typesense API URL', 'algolia-index-typesense-provider'),
                 'name' => 'algolia_index_typesense_api_url',
@@ -19,19 +19,19 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_68bfb2e1b3095',
                 'label' => __('Typesense API Key', 'algolia-index-typesense-provider'),
                 'name' => 'algolia_index_typesense_api_key',
@@ -43,19 +43,19 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_68c29744a3e27',
                 'label' => __('Typesense Public API Key', 'algolia-index-typesense-provider'),
                 'name' => 'algolia_index_typesense_public_api_key',
@@ -67,19 +67,19 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_68bfb2f7b3096',
                 'label' => __('Typesense Collection Name', 'algolia-index-typesense-provider'),
                 'name' => 'algolia_index_typesense_collection_name',
@@ -91,28 +91,28 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'options_page',
                     'operator' => '==',
                     'value' => 'algolia-index-settings',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -122,5 +122,5 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
         'description' => '',
         'show_in_rest' => 0,
-    ));
+    ]);
 }

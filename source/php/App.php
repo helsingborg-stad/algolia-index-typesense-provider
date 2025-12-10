@@ -18,7 +18,7 @@ class App
 
         add_filter(
             'AlgoliaIndex/Options/IsConfigured',
-            function ($isConfigured) {
+            static function ($isConfigured) {
                 return false;
             },
             10,
@@ -27,7 +27,7 @@ class App
         add_filter('AlgoliaIndex/Provider/Factory', [$this, 'registerProvider']);
 
         // Plugin(helsingborg-stad/algolia-index-js-searchpage-addon) integration
-        add_filter('AlgoliaIndex/SearchConfig', function ($config) {
+        add_filter('AlgoliaIndex/SearchConfig', static function ($config) {
             if (get_field('algolia_index_search_provider', 'option') !== 'typesense' || !Options::apiKey() || !Options::apiUrl()) {
                 return $config;
             }
@@ -43,7 +43,7 @@ class App
             ]);
         });
 
-        add_filter('WpSecurity/Csp', function ($domains) {
+        add_filter('WpSecurity/Csp', static function ($domains) {
             if (!isset($domains['connect-src'])) {
                 $domains['connect-src'] = [];
             }
@@ -73,7 +73,7 @@ class App
             ],
         ];
 
-        return array_filter(array_map(function ($item) {
+        return array_filter(array_map(static function ($item) {
             [$condition, $message] = $item;
             return $condition ? $message : null;
         }, $conditions));
@@ -101,7 +101,7 @@ class App
 
     public function registerProvider($providers)
     {
-        $providers['typesense'] = fn() => TypesenseProviderFactory::createFromEnv();
+        $providers['typesense'] = static fn() => TypesenseProviderFactory::createFromEnv();
         return $providers;
     }
 }

@@ -11,7 +11,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
     private string $collectionName;
     private array $settings;
 
-    public function __construct(string $apiKey, string $apiUrl, string $collectionName, array $settings = [])
+    public function __construct(#[\SensitiveParameter] string $apiKey, string $apiUrl, string $collectionName, array $settings = [])
     {
         // \error_log(\json_encode([
         //     'apiKey' => $apiKey,
@@ -126,7 +126,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
             error_log(\json_encode($response['error']));
         }
 
-        $response['result']['hits'] = array_map(function (array $item) {
+        $response['result']['hits'] = array_map(static function (array $item) {
             return $item['document'];
         }, $response['result']['hits'] ?? []);
 
@@ -166,8 +166,8 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
                 'id' => $object['uuid'],
                 'post_title' => html_entity_decode($object['post_title'] ?? ''),
                 'post_excerpt' => html_entity_decode($object['post_excerpt'] ?? ''),
-                'tags' => array_map(fn($t) => html_entity_decode($t), $object['tags'] ?? []),
-                'categories' => array_map(fn($t) => html_entity_decode($t), $object['categories'] ?? []),
+                'tags' => array_map(static fn($t) => html_entity_decode($t), $object['tags'] ?? []),
+                'categories' => array_map(static fn($t) => html_entity_decode($t), $object['categories'] ?? []),
             ],
         ]);
 
@@ -200,7 +200,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
                 }
                 return $response['result'];
             }, $objectIds),
-            function ($i) {
+            static function ($i) {
                 return $i !== null;
             },
         );
