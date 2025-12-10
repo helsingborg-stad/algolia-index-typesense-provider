@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlgoliaIndexTypesenseProvider\Provider\Typesense;
 
 class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider

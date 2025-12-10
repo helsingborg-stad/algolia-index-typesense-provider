@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlgoliaIndexTypesenseProvider\Provider\Typesense;
 
 use AlgoliaIndexTypesenseProvider\Helper\Options;

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlgoliaIndexTypesenseProvider\Helper;
 
 class Options
@@ -40,8 +39,6 @@ class Options
             return TYPESENSEINDEX_COLLECTION_NAME;
         }
 
-        return (
-            get_field('algolia_index_typesense_collection_name', 'option') ?: \AlgoliaIndex\Helper\Options::indexName()
-        );
+        return get_field('algolia_index_typesense_collection_name', 'option') ?: \AlgoliaIndex\Helper\Options::indexName();
     }
 }

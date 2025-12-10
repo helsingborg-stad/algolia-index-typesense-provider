@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace AlgoliaIndexTypesenseProvider;
 
 use AlgoliaIndexTypesenseProvider\Helper\Options;
@@ -29,11 +28,7 @@ class App
 
         // Plugin(helsingborg-stad/algolia-index-js-searchpage-addon) integration
         add_filter('AlgoliaIndex/SearchConfig', function ($config) {
-            if (
-                get_field('algolia_index_search_provider', 'option') !== 'typesense'
-                || !Options::apiKey()
-                || !Options::apiUrl()
-            ) {
+            if (get_field('algolia_index_search_provider', 'option') !== 'typesense' || !Options::apiKey() || !Options::apiUrl()) {
                 return $config;
             }
 
