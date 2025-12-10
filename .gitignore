@@ -2,6 +2,8 @@
 .*
 ~*
 
+/assets/
+
 # ignore node/grunt dependency directories
 node_modules/
 
@@ -47,6 +49,9 @@ Thumbs.db
 dist/temp
 dist/.temp
 
+phpunit-log.xml
+phpunit-testdox.txt
+
 # -------------------------
 # BEGIN Whitelisted Files
 # -------------------------
@@ -55,3 +60,4 @@ dist/.temp
 !.gitignore
 !.editorconfig
 !.github
+!.vscode
