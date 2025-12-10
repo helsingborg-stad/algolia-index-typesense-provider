@@ -1,6 +1,6 @@
 {
     "name": "algolia-index-typesense-provider",
-    "version": "1.0.9",
+    "version": "1.0.11",
     "description": "Typesense search provider for Algolia Index plugin",
     "main": "",
     "repository": {
@@ -39,7 +39,7 @@
         "vite-config-factory": "^1.0.1",
         "sass-embedded": "^1.93.3"
     },
-    "dependencies": {},
+    "dependencies": [],
     "jest": {
         "testEnvironment": "jsdom",
         "transform": {
