@@ -28,7 +28,9 @@ load_plugin_textdomain(ALGOLIA_INDEX_TYPESENSE_PROVIDER_TEXT_DOMAIN, false, ALGO
 require_once ALGOLIA_INDEX_TYPESENSE_PROVIDER_PATH . 'Public.php';
 
 // Register the autoloader
-require __DIR__ . '/vendor/autoload.php';
+if(file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require __DIR__ . '/vendor/autoload.php';
+}
 
 // Acf auto import and export
 add_action('acf/init', function () {
