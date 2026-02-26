@@ -174,7 +174,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
         $response = $this->sendRequest('POST', "/collections/{$this->collectionName}/documents", $data);
 
         if ($response['error']) {
-            error_log((string) $response['statusCode']);
+            error_log('Typesense API error - Status Code: ' . $response['statusCode']);
             error_log(\json_encode($data));
             return null;
         }
