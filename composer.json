@@ -32,7 +32,12 @@
     },
     "config": {
         "allow-plugins": {
-            "carthage-software/mago": true
+            "carthage-software/mago": true,
+            "php-http/discovery": true
         }
+    },
+    "require": {
+        "typesense/typesense-php": "^6.0",
+        "php-http/curl-client": "^2.4"
     }
 }
