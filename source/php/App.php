@@ -28,7 +28,7 @@ class App
 
         // Plugin(helsingborg-stad/algolia-index-js-searchpage-addon) integration
         add_filter('AlgoliaIndex/SearchConfig', static function ($config) {
-            if (get_field('algolia_index_search_provider', 'option') !== 'typesense' || !Options::apiKey() || !Options::apiUrl()) {
+            if (get_field('algolia_index_search_provider', 'option') !== 'typesense' || !Options::publicApiKey() || !Options::apiUrl()) {
                 return $config;
             }
 
@@ -38,7 +38,8 @@ class App
                 'host' => isset($parts['host']) ? $parts['host'] : null,
                 'port' => isset($parts['port']) ? $parts['port'] : 443,
                 'protocol' => isset($parts['scheme']) ? $parts['scheme'] : 'https',
-                'apiKey' => Options::apiKey(),
+                // SearchConfig is sent to browser JavaScript; keep the admin key server-side.
+                'apiKey' => Options::publicApiKey(),
                 'collectionName' => Options::collectionName(),
             ]);
         });
