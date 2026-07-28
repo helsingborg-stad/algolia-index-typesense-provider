@@ -62,7 +62,7 @@ class App
     {
         $conditions = [
             [
-                !is_plugin_active('algolia-index/algolia-index.php'),
+                !$this->isPluginActive('algolia-index/algolia-index.php'),
                 __('AlgoliaIndex plugin is not activated.', 'algoliaindex-typesense-provider'),
             ],
             [!Options::apiKey(), __('TYPESENSEINDEX_API_KEY is not defined.', 'algoliaindex-typesense-provider')],
@@ -82,6 +82,19 @@ class App
     public function isConfigured()
     {
         return empty($this->notices());
+    }
+
+    /**
+     * Network-active plugins can boot before WP-CLI or a front-end request has
+     * loaded the wp-admin plugin helpers.
+     */
+    private function isPluginActive(string $plugin): bool
+    {
+        if (!function_exists('is_plugin_active')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        return \is_plugin_active($plugin);
     }
 
     public function showAdminNotice()
