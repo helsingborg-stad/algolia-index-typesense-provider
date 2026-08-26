@@ -24,7 +24,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
         $this->collectionName = $collectionName;
     }
 
-    private function sendRequest(string $method, string $endpoint, array $data = [], array $customHeaders = []): mixed
+    protected function sendRequest(string $method, string $endpoint, array $data = [], array $customHeaders = []): mixed
     {
         // Build full URL (attach query string for GET)
         $url = "{$this->apiUrl}{$endpoint}";
@@ -171,7 +171,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
             ],
         ]);
 
-        $response = $this->sendRequest('POST', "/collections/{$this->collectionName}/documents", $data);
+        $response = $this->sendRequest('POST', "/collections/{$this->collectionName}/documents?action=upsert", $data);
 
         if ($response['error']) {
             error_log('Typesense API error - Status Code: ' . $response['statusCode']);
