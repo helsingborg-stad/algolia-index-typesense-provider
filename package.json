@@ -1,6 +1,6 @@
 {
     "name": "algolia-index-typesense-provider",
-    "version": "1.0.19",
+    "version": "1.0.21",
     "description": "Typesense search provider for Algolia Index plugin",
     "main": "",
     "repository": {
