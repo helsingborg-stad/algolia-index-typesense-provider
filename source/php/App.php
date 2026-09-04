@@ -45,16 +45,23 @@ class App
         });
 
         add_filter('WpSecurity/Csp', static function ($domains) {
-            if (!isset($domains['connect-src'])) {
-                $domains['connect-src'] = [];
+            if (get_field('algolia_index_search_provider', 'option') !== 'typesense') {
+                return $domains;
             }
 
-            if (!empty(Options::apiUrl())) {
-                $parts = parse_url(Options::apiUrl());
-                if (isset($parts['host'])) {
-                    $domains['connect-src'][] = $parts['scheme'] . '://' . $parts['host'];
-                }
+            $parts = parse_url((string) Options::apiUrl());
+            if (!is_array($parts) || !isset($parts['scheme'], $parts['host']) || !in_array(strtolower($parts['scheme']), ['http', 'https'], true)) {
+                return $domains;
             }
+
+            $origin = strtolower($parts['scheme']) . '://' . $parts['host'];
+            if (isset($parts['port'])) {
+                $origin .= ':' . $parts['port'];
+            }
+
+            $domains['connect-src'] ??= [];
+            $domains['connect-src'][] = $origin;
+
             return $domains;
         });
     }
